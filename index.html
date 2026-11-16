@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mehndi Design BD</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <h1 data-i18n="title">Mehndi Design BD</h1>
+      <p class="subtitle" data-i18n="subtitle">Henna designs, paste guide &amp; practice tracker — offline, in Bangla &amp; English.</p>
+    </div>
+    <button id="langToggle" class="btn lang" type="button">বাংলা</button>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button id="tabBtn-gallery" class="tab active" type="button" role="tab" aria-selected="true" data-i18n="tab_gallery">Gallery</button>
+    <button id="tabBtn-guide" class="tab" type="button" role="tab" aria-selected="false" data-i18n="tab_guide">Paste Guide</button>
+    <button id="tabBtn-progress" class="tab" type="button" role="tab" aria-selected="false" data-i18n="tab_progress">My Progress</button>
+  </nav>
+</header>
+
+<main>
+  <!-- ============ GALLERY ============ -->
+  <section id="tab-gallery" aria-label="Gallery">
+    <div id="galleryView">
+      <div class="filters">
+        <input id="searchBox" type="search" data-i18n-ph="search_ph" placeholder="Search designs…" aria-label="Search designs">
+        <label><span data-i18n="filter_cat">Category</span>
+          <select id="filterCat">
+            <option value="all" data-i18n="all">All</option>
+            <option value="bridal" data-i18n="bridal">Bridal</option>
+            <option value="arabic" data-i18n="arabic">Arabic</option>
+            <option value="simple" data-i18n="simple">Simple</option>
+            <option value="feet" data-i18n="feet">Feet</option>
+          </select>
+        </label>
+        <label><span data-i18n="filter_diff">Difficulty</span>
+          <select id="filterDiff">
+            <option value="all" data-i18n="all">All</option>
+            <option value="easy" data-i18n="easy">Easy</option>
+            <option value="medium" data-i18n="medium">Medium</option>
+            <option value="hard" data-i18n="hard">Hard</option>
+          </select>
+        </label>
+        <label class="check"><input id="favOnly" type="checkbox"> <span data-i18n="fav_only">Favourites only</span></label>
+      </div>
+      <p id="libCount" class="count" aria-live="polite"></p>
+      <div id="cardGrid" class="grid"></div>
+    </div>
+
+    <div id="detailView" hidden>
+      <button id="backBtn" class="btn" type="button" data-i18n="back">← Back to gallery</button>
+      <div class="detail">
+        <div id="detailSvg" class="detail-svg"></div>
+        <div class="detail-body">
+          <h2 id="detailName"></h2>
+          <p id="detailMeta" class="meta"></p>
+          <p id="detailBlurb"></p>
+          <p id="detailBest" class="meta"></p>
+          <h3 data-i18n="how_to">How to draw it</h3>
+          <ol id="detailSteps"></ol>
+          <div class="detail-actions">
+            <button id="detailTried" class="btn primary" type="button">Mark as tried</button>
+            <button id="detailFav" class="btn" type="button">☆ Favourite</button>
+          </div>
+          <label class="note-label" for="noteBox"><span data-i18n="save_note">Save note</span></label>
+          <textarea id="noteBox" rows="3" data-i18n-ph="note_ph" placeholder="Your note — what worked, what to fix…"></textarea>
+          <button id="saveNoteBtn" class="btn" type="button" data-i18n="save_note">Save note</button>
+          <p id="noteMsg" class="msg" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GUIDE ============ -->
+  <section id="tab-guide" hidden aria-label="Paste Guide">
+    <h2 data-i18n="guide_paste">Henna paste — mix it yourself</h2>
+    <p class="note" data-i18n="guide_note">Traditional guidance, not medical advice. Patch-test on a small spot first if your skin is sensitive — stop if it itches or burns.</p>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <h3 data-i18n="guide_ingredients">What you need</h3>
+        <ul id="guideIngredients"></ul>
+      </div>
+      <div class="guide-card">
+        <h3 data-i18n="guide_mixing">Mixing steps</h3>
+        <ol id="guideMixing"></ol>
+      </div>
+      <div class="guide-card">
+        <h3 data-i18n="guide_apply">Applying the design</h3>
+        <ol id="guideApply"></ol>
+      </div>
+      <div class="guide-card">
+        <h3 data-i18n="guide_care">Aftercare — keep the colour dark</h3>
+        <ol id="guideCare"></ol>
+      </div>
+    </div>
+    <div class="guide-card">
+      <h3 data-i18n="guide_stain">Stain timeline (typical)</h3>
+      <ul id="stainTimeline"></ul>
+      <h3 data-i18n="stain_now">Stain checker</h3>
+      <label><span data-i18n="stain_hint">Hours since you scraped the paste off:</span>
+        <input id="stainHours" type="number" min="0" max="400" value="24">
+      </label>
+      <p><span data-i18n="stain_result">Expected stain now:</span> <strong id="stainResult"></strong></p>
+    </div>
+  </section>
+
+  <!-- ============ PROGRESS ============ -->
+  <section id="tab-progress" hidden aria-label="My Progress">
+    <div class="stats">
+      <div class="stat"><strong id="statTried">0</strong><span data-i18n="stat_tried">Designs tried</span></div>
+      <div class="stat"><strong id="statFavs">0</strong><span data-i18n="stat_favs">Favourites</span></div>
+      <div class="stat"><strong id="statNotes">0</strong><span data-i18n="stat_notes">Notes</span></div>
+    </div>
+    <h3 data-i18n="stat_by_cat">Tried by category</h3>
+    <ul id="statByCat" class="plain"></ul>
+    <h3 data-i18n="tried_list">Designs I have tried</h3>
+    <ul id="triedList" class="plain"></ul>
+    <h3 data-i18n="my_notes">My notes</h3>
+    <ul id="notesList" class="plain"></ul>
+    <div class="data-tools">
+      <button id="exportBtn" class="btn" type="button" data-i18n="export">Export my data</button>
+      <button id="importBtn" class="btn" type="button" data-i18n="import">Import data</button>
+      <input id="importFile" type="file" accept="application/json" hidden>
+      <button id="eraseBtn" class="btn danger" type="button" data-i18n="erase">Erase everything</button>
+      <p id="dataMsg" class="msg" aria-live="polite"></p>
+      <div id="eraseBox" hidden>
+        <p data-i18n="erase_confirm">Type DELETE to erase all favourites, tried marks and notes.</p>
+        <input id="eraseInput" type="text" autocomplete="off" placeholder="DELETE">
+        <button id="eraseConfirmBtn" class="btn danger" type="button" data-i18n="erase">Erase everything</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p data-i18n="footer">Original artwork drawn in code — no photos copied. Personal practice tool, not a professional henna service. All data stays on your device.</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
